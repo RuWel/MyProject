@@ -11,20 +11,13 @@ pool:
 
 steps:
 
-- task: BASH@3
-  displayName: 'verify java installation'
-  inputs:
-    targetType: 'inline'
-    script: |
-      java -version
-      echo $JAVA_HOME
-
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
     goals: 'clean install'
     publishJUnitResults: false
     javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.17'
     mavenVersionOption: 'Default'
     mavenAuthenticateFeed: false
     effectivePomSkip: false

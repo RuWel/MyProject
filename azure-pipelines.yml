@@ -10,6 +10,15 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+
+task: BASH@3
+        displayName: 'verify java installation'
+        inputs:
+          targetType: 'inline'
+          script: |
+            java -version
+            echo $JAVA_HOME
+
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'

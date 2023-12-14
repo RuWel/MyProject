@@ -14,7 +14,7 @@ steps:
   displayName: 'Build application JAR'
   inputs:
     mavenPomFile: 'pom.xml'
-    goals: 'install'
+    goals: 'clean install'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     javaHomeOption: 'JDKVersion'

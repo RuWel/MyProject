@@ -14,7 +14,7 @@ steps:
   displayName: 'Build application JAR'
   inputs:
     mavenPomFile: 'pom.xml'
-    goals: 'install'
+    goals: 'clean install'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     javaHomeOption: 'JDKVersion'
@@ -22,19 +22,3 @@ steps:
     mavenAuthenticateFeed: false
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
-
-- task: Docker@2
-  inputs:
-    repository: '$(imageName)'
-    command: 'build'
-    Dockerfile: '**/Dockerfile'
-
-- task: ECRPushImage@1
-  inputs:
-    awsCredentials: 'aws_ecr_connection'
-    regionName: 'eu-central-1'
-    imageSource: 'imageid'
-    sourceImageId: '$(imageName):$(Build.BuildId)'
-    repositoryName: '$(repoName)'
-    pushTag: '$(Build.BuildId)'
-    forceDockerNamingConventions: true

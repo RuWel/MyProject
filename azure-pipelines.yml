@@ -24,7 +24,20 @@ steps:
     sonarQubeRunAnalysis: false
 
 - task: Docker@2
+  displayName: 'Build Docker Image'
   inputs:
     repository: '$(imageName)'
     command: 'build'
     Dockerfile: '**/Dockerfile'
+
+- task: ECRPushImage@1
+  inputs:
+    awsCredentials: 'aws_ecr_connection'
+    regionName: 'eu-central-1'
+    imageSource: 'imageid'
+    sourceImageId: '$(imageName):$(Build.BuildId)'
+    repositoryName: '$(repoName)'
+    pushTag: '$(Build.BuildId)'
+    forceDockerNamingConventions: true
+    logRequest: true
+    logResponse: true
